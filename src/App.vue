@@ -9,8 +9,6 @@ import { RouterView } from 'vue-router';
 </template>
 
 <style scoped>
-.estiloh1{
-  color:red
-}
+
 
 </style>
