@@ -2,11 +2,13 @@ import { ref } from "vue"
 import { supabase } from "../supaBaseClient"
 import type { User } from "@supabase/supabase-js"
 import type { UserData } from "../types/UserData"
+import { useAuthStore } from "../stores/Auth"
 
 export function useAuth() {
   const user = ref<User | null>(null)
   const loading = ref<boolean>(false)
   const error = ref<string | null>(null)
+  const authStore = useAuthStore()
   async function signUp(email: string, password: string ) {
     loading.value = true
     error.value = null
@@ -21,6 +23,7 @@ export function useAuth() {
         user.value = null
       } else {
         user.value = data.user
+        authStore.setClient(user?.value?.id)
       }
   
     } catch (e) {
@@ -30,6 +33,7 @@ export function useAuth() {
     } finally {
       loading.value = false
     }
+   
   
     return { user: user.value, error: error.value }
   }
@@ -45,6 +49,7 @@ export function useAuth() {
         user.value = null
       } else {
         user.value = data.user
+        authStore.setClient(user?.value?.id)
       }
   
     } catch (e) {
@@ -84,12 +89,22 @@ export function useAuth() {
     }
   }
 
+async function signOut() {
+  const { error } = await supabase.auth.signOut()
+  if (error) {
+    console.error('Error cerrando sesión:', error.message)
+  } else {
+    console.log('Sesión cerrada correctamente')
+  }
+}
+
   return {
     user,
     loading,
     error,
     signUp,
     signIn,
-    updateUser
+    updateUser,
+    signOut          
   }
 }

@@ -1,4 +1,15 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
+import { useAuth } from '../composables/useAuth';
+
+const password = ref<string>("")
+const email = ref<string>("")
+const auth = useAuth()
+async function Login(e: Event) {
+  e.preventDefault()
+auth.signIn(email.value, password.value)
+
+}
 </script>
 <template>
    <section class="min-h-screen flex items-center justify-center bg-gray-50 px-4">
@@ -17,6 +28,7 @@
           type="email"
           id="email"
           name="email"
+          v-model="email"
           required
           autocomplete="email"
           class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
@@ -30,6 +42,7 @@
         <input
           type="password"
           id="password"
+          v-model="password"
           name="password"
           required
           autocomplete="current-password"
@@ -49,6 +62,7 @@
 
       <!-- Submit -->
       <button
+      @click="Login"
         type="submit"
         class="w-full inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-white font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
       >

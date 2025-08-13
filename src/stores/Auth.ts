@@ -4,17 +4,20 @@ import { ref, watch } from "vue";
 
 export const useAuthStore = defineStore("auth", () => {
     
-    const stored = localStorage.getItem('userData')
+    const stored = localStorage.getItem('userId')
     const client = ref<string >(stored ? stored : "")
   
     // acción para setear client ID
-    function setClient(c: string ) {
-      client.value = c
+    function setClient(c: string | undefined ) {
+      if(c){
+  client.value = c
+      }
+    
     }
   
     // persistencia manual en localStorage
     watch(client, (val) => {
-      localStorage.setItem('userData', val)
+      localStorage.setItem('userId', val)
     }, { deep: true })
   
     return { client, setClient }

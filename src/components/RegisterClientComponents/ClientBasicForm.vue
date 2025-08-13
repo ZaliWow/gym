@@ -37,13 +37,17 @@ onBeforeUnmount(() => {
   window.removeEventListener('beforeunload', handleBeforeUnload)
 })
 function next() {
-  store.setClientBase({
-    id: crypto.randomUUID(),
+  const id_coach = localStorage.getItem('userId')
+  if (id_coach) {
+    store.setClientBase({
     firstName: firstName.value,
     lastName: lastName.value,
+    id_coach: id_coach,
     email: email.value,
     phoneNumber: phoneNumber.value
   })
+  }
+ 
 
   emit('nextStep')
 }

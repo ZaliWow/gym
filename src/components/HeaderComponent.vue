@@ -1,9 +1,15 @@
 <script lang="ts" setup>
   import { RouterLink } from 'vue-router'
-  import { Bars3Icon, XMarkIcon, UserGroupIcon, UserPlusIcon } from '@heroicons/vue/24/solid'
+  import { Bars3Icon, XMarkIcon, UserGroupIcon, UserPlusIcon, LanguageIcon } from '@heroicons/vue/24/solid'
 import { ref } from 'vue';
+import { useAuth } from '../composables/useAuth';
 
 const isOpen = ref(false)
+const auth = useAuth()
+async function Logout(e:Event) {
+  e.preventDefault()
+   await auth.signOut()
+}
   </script>
 
 <template>
@@ -54,6 +60,10 @@ const isOpen = ref(false)
         <li class="flex w-full items-center border-t  border-white p-3 rounded">
           <UserPlusIcon class="w-5 h-5" />
           <RouterLink to="/register/client" class="nav-link" @click="isOpen = false">Registrar Cliente</RouterLink>
+        </li>
+        <li class="flex w-full items-center border-t  border-white p-3 rounded">
+          <LanguageIcon class="w-5 h-5" />
+          <RouterLink to="/login" class="nav-link" @click="Logout">Cerrar Sesion</RouterLink>
         </li>
       </ul>
     </div>

@@ -5,12 +5,14 @@ import type { UserData } from '../types/UserData';
 import { useRoute } from 'vue-router';
 import { supabase } from '../supaBaseClient';
 import router from '../router';
+import Modal from '../components/UX/Modal.vue';
 const route = useRoute()
 const username = ref<string>("")
 const full_name = ref<string>("")
 const avatar_url = ref<string>("")
 const website = ref<string>("")
-
+const isModalOpen = ref<boolean>(false)
+const messageModal = ref<string>("¡Tu perfil se ha completado con éxito!  Ahora podrás registrar clientes y llevar un control detallado de sus avances.")
 
 onMounted(async () => {
     const paramUserId = route.params.userId
@@ -45,7 +47,8 @@ async function submit(e: Event) {
         if (userId) {
           const { data, error } = await useAuth().updateUser(userDataConstructor)
           if (data) {
-            console.log("updateado con exito")
+            isModalOpen.value = true
+            router.push("clients")
           }
           if (error) {
             alert(error)
@@ -109,4 +112,9 @@ async function submit(e: Event) {
     </div>
 
   </section>
+  <Modal
+    :message="messageModal"
+    :openModal="isModalOpen" 
+    @close="isModalOpen = false" 
+  />
 </template>

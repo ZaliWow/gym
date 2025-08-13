@@ -3,7 +3,7 @@ import { useClientStore } from '../stores/Clients';
 import HeaderComponent from "../components/HeaderComponent.vue"
 import Clients from '../components/ClientsComponents/Clients.vue';
 import FilterClients from '../components/ClientsComponents/FilterClients.vue';
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import type { Client } from '../types/Client';
 const route = useRoute()
@@ -14,6 +14,9 @@ const filters = ref({
   email: (route.query.email as string) || ''
 })
 
+onMounted(async ()=>{
+  
+})
 // Computed con filtros aplicados
 const filteredClients = computed<Client[]>(() => {
   return clientsStore.clients.filter(client => {

@@ -6,6 +6,7 @@ import Register from "../pages/Register.vue"
 import Login from "../pages/Login.vue"
 import ClientDetails from "../pages/ClientDetails.vue"
 import CompleteAccount from "../pages/CompleteAccount.vue"
+import Landing from "../pages/Landing.vue"
 
 const routes: RouteRecordRaw[] = [
   {
@@ -38,8 +39,12 @@ const routes: RouteRecordRaw[] = [
     path:"/complete-account/",
     name:"complete-account",
     component: CompleteAccount
+  },
+  {
+    path:"/",
+    name:"landing",
+    component: Landing
   }
-
 
 ]
 

@@ -13,7 +13,6 @@ const membershipType = ref<'basic' | 'premium' | 'vip'>('basic')
 const startDate = ref('')
 const birthDate =ref('')
 const injuriesOrConditions = ref<string>('')
-const trainerAssigned = ref<string>('')
 const gender = ref<'male' | 'female' | 'other'>('male')
 const isActive = ref(true)
 watch([weightKg, heightCm, membershipType, startDate, isActive], () => {
@@ -53,7 +52,6 @@ function finish() {
     birthDate: birthDate.value,
     gender: gender.value,
     injuriesOrConditions: injuriesOrConditions.value,
-    trainerAssigned: trainerAssigned.value
   })
 
   emit('finish')
@@ -114,16 +112,7 @@ function finish() {
       <input type="text" required  v-model="injuriesOrConditions"
       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
      </div>
-    <!-- Entrenador-->
-    <div class="lg:px-10">
-      <label class="block text-gray-700 font-medium mb-1">Entrenador</label>
-      <select v-model="trainerAssigned" required
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <option value="davidTrainer">David</option>
-        <option value="sofiaTrainer">Sofia</option>
-        <option value="angieTrainer">Angie</option>
-      </select>
-    </div>
+  
     <!-- Fecha de inicio -->
     <div class="lg:px-10">
       <label class="block text-gray-700 font-medium mb-1">Fecha de inicio:</label>

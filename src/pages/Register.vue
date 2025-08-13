@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useAuth } from '../composables/useAuth';
-import type { UserData } from '../types/UserData';
 import { useAuthStore } from '../stores/Auth';
 import Modal from '../components/UX/Modal.vue';
+import { CheckCircleIcon } from '@heroicons/vue/24/solid';
 
-const isModalOpen = ref<boolean>(true)
+const isModalOpen = ref<boolean>(false)
 const messageModal = ref<string>("lorem uno dos tres cuatro esto es un mensaj de prueba si que si")
 const email = ref<string>("")
 const password = ref<string>("")
@@ -22,6 +22,7 @@ async function changeStep(e: Event) {
       authStore.setClient( user.id)
       isModalOpen.value = true
       messageModal.value = "el usuario ha sido registrado con exito."
+      step.value = 2
     }
     if (error) {
       isModalOpen.value = true
@@ -32,6 +33,9 @@ async function changeStep(e: Event) {
     isModalOpen.value = true
     messageModal.value =  `Oops, algo ha salido mal ${error}`   
   }
+}
+function goToGmail(){
+  window.location.href = "https://mail.google.com";
 }
 </script>
 <template>
@@ -95,9 +99,18 @@ async function changeStep(e: Event) {
     </div>
   </section>
   <section v-if="step === 2 " class="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-    <div class="w-full max-w-md bg-white rounded-xl shadow-lg p-6">
-      <h1>Cuenta creada con exito, por favor confirma tu correo electrónico para completar el tu perfil</h1>
-    </div>
+    <div class="flex flex-col items-center w-full max-w-md bg-white rounded-xl shadow-lg p-6">
+      <CheckCircleIcon class="w-10 h-10 text-green-500 pb-4" />
+      <h1 class="text-2xl font-bold text-gray-800">
+  ¡Tu cuenta ha sido creada con éxito! Revisa tu 
+  <span 
+    @click="goToGmail"
+    class="text-blue-600 underline cursor-pointer hover:text-blue-800"
+  >
+    correo electrónico
+  </span> 
+  y confirma tu cuenta para completar tu perfil.
+</h1>    </div>
   </section>
   <Modal
     :message="messageModal"

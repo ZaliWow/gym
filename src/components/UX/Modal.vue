@@ -20,11 +20,11 @@ function confirmarAccion() {
  <!-- Overlay oscuro -->
  <div 
     v-if="openModal" 
- class="fixed top-0 right-0 z-50 "
+ class="fixed top-2 right-2 z-50 "
     @click.self="$emit('close')"
   >
     <!-- Contenido del modal -->
-    <div class="bg-green-400  shadow-lg w-full max-w-md px-4 py-1 relative ">
+    <div class="bg-green-400  shadow-lg w-full max-w-md px-4 py-1 rounded-sm  relative ">
       <!-- Botón cerrar -->
       <button 
         @click="$emit('close')" 

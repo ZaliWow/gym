@@ -4,13 +4,20 @@ import { ref } from 'vue'
 import ClientDetailsForm from "../components/RegisterClientComponents/ClientDetailsForm.vue"
 import ClientBasicForm from "../components/RegisterClientComponents/ClientBasicForm.vue"
 import { useClientStore } from "../stores/Clients"
+import { useClient } from "../composables/useClient"
 
 const store = useClientStore()
 const step = ref(1)
+const client = useClient()
 
 function handleFinish() {
   store.saveClient()
-  step.value = 1 // volver al paso 1 para otro registro
+  const storedClients = localStorage.getItem('clients')
+  const newClientSupport = storedClients ? JSON.parse(storedClients) : []
+  const newClient = newClientSupport[newClientSupport.length - 1]
+
+  client.createClient(newClient)
+ console.log(newClient)
 }
 </script>
 
